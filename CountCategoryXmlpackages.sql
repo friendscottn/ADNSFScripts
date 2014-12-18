@@ -1,4 +1,2 @@
-select * from AppConfig where name like '%recently%'
-
-
-update appconfig set ConfigValue = 'false' where name = 'RecentlyViewedProducts.Enabled'
+select xmlpackage, count(*) as total, min(categoryid) as firstentityid from category 
+			group by xmlpackage
