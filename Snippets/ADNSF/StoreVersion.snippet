@@ -9,9 +9,9 @@
 </_locDefinition>
 	<CodeSnippet Format="1.0.0">
 	<Header>
-	<Title>Category XmlPackages Count</Title>
+	<Title>ADNSF DB Version</Title>
         <Shortcut></Shortcut>
-	<Description>Check the xmlpackages used on categories and their counts</Description>
+	<Description>Check the version of the datbase</Description>
 	<Author>Scott Friend</Author>
 	<SnippetTypes>
 		<SnippetType>Expansion</SnippetType>
@@ -19,10 +19,7 @@
 	</Header>
 	<Snippet>
 		<Code Language="SQL">
-			<![CDATA[
-			select Xmlpackage, count(*) as Total, min(categoryid) as FirstCategoryId from Category 
-			group by xmlpackage
-			]]>
+			<![CDATA[select * from AppConfig where Name = 'storeversion']]>
 		</Code>
 	</Snippet>
 	</CodeSnippet>
