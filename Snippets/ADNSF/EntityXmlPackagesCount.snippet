@@ -19,8 +19,7 @@
 	</Header>
 	<Snippet>
 		<Code Language="SQL">
-			<![CDATA[
-select XmlPackage, count(*) as Total, min(entityid) as FirstEntityId, min(entitytype) as EntityType from EntityMaster 
+			<![CDATA[select XmlPackage, count(*) as Total, min(entityid) as FirstEntityId, min(entitytype) as EntityType from EntityMaster 
 group by xmlpackage
 			]]>
 		</Code>

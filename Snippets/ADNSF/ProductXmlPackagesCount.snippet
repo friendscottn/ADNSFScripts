@@ -19,8 +19,7 @@
 	</Header>
 	<Snippet>
 		<Code Language="SQL">
-			<![CDATA[
-select XmlPackage, count(*) as Total, min(productid) as FirstProductId from Product 
+			<![CDATA[select XmlPackage, count(*) as Total, min(productid) as FirstProductId from Product 
 group by xmlpackage
 			]]>
 		</Code>
