@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+<_locDefinition xmlns="urn:locstudio">
+    <_locDefault _loc="locNone" />
+    <_locTag _loc="locData">Title</_locTag>
+    <_locTag _loc="locData">Description</_locTag>
+    <_locTag _loc="locData">Author</_locTag>
+    <_locTag _loc="locData">ToolTip</_locTag>
+</_locDefinition>
+	<CodeSnippet Format="1.0.0">
+	<Header>
+	<Title>All Table Sizes in MB</Title>
+        <Shortcut></Shortcut>
+	<Description>Show sizes of all tables in database in MB</Description>
+	<Author>Internets / Duncan Coppedge</Author>
+	<SnippetTypes>
+		<SnippetType>Expansion</SnippetType>
+	</SnippetTypes>
+	</Header>
+	<Snippet>
+		<Code Language="SQL">
+<![CDATA[
+SELECT 
+	t.NAME AS TableName,
+	p.rows AS RowCounts,
+	SUM(a.total_pages) * 8 / 1024 AS TotalSpaceMB, 
+	SUM(a.used_pages) * 8 / 1024 AS UsedSpaceMB, 
+	(SUM(a.total_pages) - SUM(a.used_pages)) * 8 / 1024 AS UnusedSpaceMB
+FROM 
+	sys.tables t
+INNER JOIN      
+	sys.indexes i ON t.OBJECT_ID = i.object_id
+INNER JOIN 
+	sys.partitions p ON i.object_id = p.OBJECT_ID AND i.index_id = p.index_id
+INNER JOIN 
+	sys.allocation_units a ON p.partition_id = a.container_id
+WHERE 
+	t.NAME NOT LIKE 'dt%' 
+	AND t.is_ms_shipped = 0
+	AND i.OBJECT_ID > 255 
+GROUP BY 
+	t.Name, p.Rows
+ORDER BY 
+	TotalSpaceMB desc
+]]>
+		</Code>
+	</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+
