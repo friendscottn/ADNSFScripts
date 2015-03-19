@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+<_locDefinition xmlns="urn:locstudio">
+    <_locDefault _loc="locNone" />
+    <_locTag _loc="locData">Title</_locTag>
+    <_locTag _loc="locData">Description</_locTag>
+    <_locTag _loc="locData">Author</_locTag>
+</_locDefinition>
+	<CodeSnippet Format="1.0.0">
+	<Header>
+		<Title>Topic Insert</Title>
+		<Shortcut>topic</Shortcut>
+		<Description>Insert a topic</Description>
+		<Author>Scott Friend</Author>
+	</Header>
+	<Snippet>
+		<Code Language="SQL">
+			<![CDATA[-- delete from topic where name = 'NewTopic'
+if not exists(select name from Topic where Name = 'NewTopic')
+begin
+	Insert Into Topic (Name, Title, ShowInSitemap, Description) Values
+	(
+		'NewTopic', 
+		'NewTopic', 
+		0, 
+		'
+		<h1>New Topic</h1>
+		'
+	);
+end]]>
+		</Code>
+	</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+
