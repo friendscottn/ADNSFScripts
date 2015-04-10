@@ -5,21 +5,19 @@
     <_locTag _loc="locData">Title</_locTag>
     <_locTag _loc="locData">Description</_locTag>
     <_locTag _loc="locData">Author</_locTag>
-    <_locTag _loc="locData">ToolTip</_locTag>
 </_locDefinition>
 	<CodeSnippet Format="1.0.0">
 	<Header>
-	<Title>Version Check</Title>
-        <Shortcut></Shortcut>
-	<Description>Check the version of the database</Description>
-	<Author>Scott Friend</Author>
-	<SnippetTypes>
-		<SnippetType>Expansion</SnippetType>
-	</SnippetTypes>
+		<Title>StringResource Insert</Title>
+		<Shortcut>string</Shortcut>
+		<Description>Insert a string resource</Description>
+		<Author>Scott Friend</Author>
 	</Header>
 	<Snippet>
 		<Code Language="SQL">
-			<![CDATA[select * from AppConfig where Name = 'storeversion']]>
+			<![CDATA[If (not exists (select Name from StringResource Where (Name='Name' AND LocaleSetting='en-US')))
+insert into StringResource (Name, LocaleSetting, ConfigValue)
+values('Name', 'en-US', 'Value')]]>
 		</Code>
 	</Snippet>
 	</CodeSnippet>

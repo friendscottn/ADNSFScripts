@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+<_locDefinition xmlns="urn:locstudio">
+    <_locDefault _loc="locNone" />
+    <_locTag _loc="locData">Title</_locTag>
+    <_locTag _loc="locData">Description</_locTag>
+    <_locTag _loc="locData">Author</_locTag>
+    <_locTag _loc="locData">ToolTip</_locTag>
+</_locDefinition>
+	<CodeSnippet Format="1.0.0">
+	<Header>
+	<Title>Make Safe For Dev</Title>
+        <Shortcut></Shortcut>
+	<Description>Make the database safe for dev</Description>
+	<Author>Scott Friend</Author>
+	</Header>
+	<Snippet>
+		<Code Language="SQL">
+			<![CDATA[declare @email varchar(200) = 'ENTER_YOUR_EMAIL_FROM'
+declare @mailserver varchar(200) = 'ENTER_YOUR_MAIL_SERVER'
+
+update customer set email = 'staging_' + email where isadmin = 0 and email != ''
+update orders set email = 'staging_' + email where customerid not in(select customerid from customer where isadmin > 0)
+update distributor set email = 'staging_' + email
+
+update appconfig set configvalue = @email where name = 'GotOrderEMailFrom'
+update appconfig set configvalue = @email where name = 'GotOrderEMailTo'
+update appconfig set configvalue = @email where name = 'MailMe_FromAddress'
+update appconfig set configvalue = @email where name = 'MailMe_ToAddress'
+update appconfig set configvalue = @email where name = 'ReceiptEMailFrom'
+
+update appconfig set configvalue = @mailserver where name = 'MailMe_Server'
+update appconfig set configvalue = '' where name = 'MailMe_Pwd'
+update appconfig set configvalue = 'false' where name = 'MailMe_UseSSL'
+update appconfig set configvalue = 'false' where name = 'redirectlivetowww'
+update appconfig set configvalue = 'false' where name = 'usessl'
+update appconfig set configvalue = 'false' where name = 'UseLiveTransactions'
+
+update appconfig set configvalue = 'MANUAL' where name = 'paymentgateway'
+
+update appconfig set configvalue = '' where name = 'Dispatch_ToPhoneNumber'
+]]>
+		</Code>
+	</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+
