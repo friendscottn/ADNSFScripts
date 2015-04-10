@@ -1,3 +1,3 @@
 #ADNSFScripts
 
-Scripts for performing various actions on AspDotNetStorefront
+Scripts for performing various actions on AspDotNetStorefront.
