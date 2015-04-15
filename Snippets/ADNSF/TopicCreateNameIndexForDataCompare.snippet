@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+<_locDefinition xmlns="urn:locstudio">
+    <_locDefault _loc="locNone" />
+    <_locTag _loc="locData">Title</_locTag>
+    <_locTag _loc="locData">Description</_locTag>
+    <_locTag _loc="locData">Author</_locTag>
+</_locDefinition>
+	<CodeSnippet Format="1.0.0">
+	<Header>
+		<Title>Topic Create Name Index</Title>
+		<Shortcut>topicNameIndex</Shortcut>
+		<Description>Create Name Index</Description>
+		<Author>Duncan Coppedge</Author>
+	</Header>
+	<Snippet>
+		<Code Language="SQL">
+			<![CDATA[
+--use in visual studio data compare to enable auto-scripting topic updates
+--DO NOT USE FOR DELETE OR CREATE
+--How to use:
+-- > RUN THIS SCRIPT FIRST ON BOTH SOURCE AND TARGET DB 
+-- > VisualStudio > Tools > SQL Server > New Data Comparison
+-- > Choose source (current staging with mystery mods) and target(db that has had skinning script run on it) databases 
+-- > CLICK Next 
+-- > UNCHECK all tables except Topic
+-- > CHECK Topic Table checkbox
+-- > SET Comparison Key to UIX_Topic_TopicName_Compare
+-- > EXPAND Topic to see fields
+-- > UNCHECK TopicID, TopicGUID, CreatedOn, and UpdatedOn
+-- > CLICK Finish
+-- > HIGHLIGHT dbo.Topic in Comparison screen
+-- > Topics that are Only in Source must be added to skinning script MANUALLY
+-- > Topics that are Only in Target should be left alone
+-- > Make sure Different Records are correct
+-- > CLICK Generate Script button at top left of screen.
+-- > Save Generated script contents as additional skinning sql file in Schema folder in SVN
+CREATE UNIQUE NONCLUSTERED INDEX [UIX_Topic_TopicName_Compare] ON [dbo].[Topic]
+(
+	[Name] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+]]>
+		</Code>
+	</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+
