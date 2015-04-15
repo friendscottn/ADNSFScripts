@@ -39,6 +39,9 @@ update appconfig set configvalue = 'false' where name = 'UseLiveTransactions'
 update appconfig set configvalue = 'MANUAL' where name = 'paymentgateway'
 
 update appconfig set configvalue = '' where name = 'Dispatch_ToPhoneNumber'
+
+update appconfig set ConfigValue = '9999' where name = 'SessionTimeoutInMinutes'
+update appconfig set ConfigValue = 'false' where name = 'SessionTimeoutWarning.Enabled'
 ]]>
 		</Code>
 	</Snippet>
