@@ -36,8 +36,10 @@
 -- > CLICK Generate Script button at top left of screen.
 -- > Save Generated script contents as additional skinning sql file in Schema folder in SVN
 -- >
--- > ***ADD the following line to generated update script to avoid update conflicts.***
--- > DROP INDEX [UIX_Topic_TopicName_Compare] ON [dbo].[Topic]
+-- > ***ADD the following lines to generated update script to avoid update conflicts.***
+-- IF EXISTS(SELECT * FROM sys.indexes WHERE object_id = object_id('dbo.topic') AND NAME ='UIX_Topic_TopicName_Compare')
+--    DROP INDEX [UIX_Topic_TopicName_Compare] ON [dbo].[Topic];
+-- GO
 -- >
 CREATE UNIQUE NONCLUSTERED INDEX [UIX_Topic_TopicName_Compare] ON [dbo].[Topic]
 (
